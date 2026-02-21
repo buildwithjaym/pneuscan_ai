@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="/assets/img/Pnue.png" />
+  <title>Sign up | PneuScan AI</title>
+  <link rel="stylesheet" href="/assets/css/app.css" />
+</head>
+<body>
+  <main class="auth-wrap">
+    <a class="brand auth-brand" href="/index.html">
+      <img class="brand-mark" src="/assets/img/Pnue.png" alt="PneuScan AI icon" />
+      <span class="brand-text">PneuScan <span class="brand-ai">AI</span></span>
+    </a>
+
+    <section class="auth-card">
+      <h1>Create your account</h1>
+      <p class="muted">Start a secure workspace for scans and results.</p>
+
+      <form id="signupForm" class="auth-form">
+        <label class="auth-label">
+          Full name
+          <input id="fullName" type="text" autocomplete="name" required />
+        </label>
+
+        <label class="auth-label">
+          Email
+          <input id="email" type="email" autocomplete="email" required />
+        </label>
+
+        <label class="auth-label">
+          Password
+          <input id="password" type="password" autocomplete="new-password" minlength="8" required />
+        </label>
+
+        <button class="btn btn-primary" type="submit">Create account</button>
+
+        <p class="auth-links" style="align-items: center; justify-content: center; ">
+          <a href="/auth/login.html">Already have an account?</a>
+        </p>
+
+        <p id="msg" class="auth-msg" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <script type="module" src="/assets/js/auth/signup.js"></script>
+</body>
+</html>
