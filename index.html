@@ -418,22 +418,33 @@
   </div>
 </section>
 
-    <!-- CTA -->
-    <section id="cta" class="section">
-      <div class="container cta reveal">
-        <div>
-          <h2>Request a clinical demo</h2>
-          <p>Get a pilot-ready walkthrough of the risk report experience, integration approach, and validation roadmap.</p>
-        </div>
+   <!-- CTA -->
+<section id="cta" class="section">
+  <div class="container cta reveal">
+    <div>
+      <h2>Request a clinical demo</h2>
+      <p>Get a pilot-ready walkthrough of the risk report experience, integration approach, and validation roadmap.</p>
+    </div>
 
-        <form class="cta-form" action="#" method="post" onsubmit="return false;">
-          <label class="sr-only" for="email">Email</label>
-          <input id="email" type="email" placeholder="your@email.com" autocomplete="email" />
-          <button class="btn btn-primary" type="submit" id="ctaBtn">Get in touch</button>
-          <p class="tiny" id="ctaHint">We will reply with a demo deck and pilot discussion steps.</p>
-        </form>
-      </div>
-    </section>
+    <form class="cta-form" novalidate>
+      <input
+        id="ctaEmail"
+        name="email"
+        type="email"
+        placeholder="your@email.com"
+        autocomplete="email"
+     />    
+
+      <button type="submit" id="ctaBtn" class="btn btn-primary">
+        Get in touch
+      </button>
+
+      <p class="tiny" id="ctaHint">
+        We will reply with a demo deck and pilot discussion steps.
+      </p>
+    </form>
+  </div>
+</section>
   </main>
 
   <footer class="footer">
@@ -462,5 +473,6 @@
   </footer>
 
   <script src="assets/js/app.js"></script>
+  <script type="module" src="assets/js/request-demo.js"></script>
 </body>
 </html>
