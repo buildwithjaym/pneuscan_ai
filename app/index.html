@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="/assets/img/Pnue.png" />
+  <title>Dashboard | PneuScan AI</title>
+  <link rel="stylesheet" href="/assets/css/app-ui.css" />
+</head>
+<body>
+
+  <!-- Mobile top bar -->
+  <header class="mobile-top">
+    <div class="container mobile-bar">
+      <button class="icon-btn" id="openDrawer" type="button" aria-label="Open menu">☰</button>
+      <a class="brand" href="/app/index.html">
+        <img src="/assets/img/Pnue.png" alt="PneuScan AI icon" />
+        <span>PneuScan <span class="ai">AI</span></span>
+      </a>
+      <a class="btn btn-primary" href="/app/new-scan.html">New scan</a>
+    </div>
+  </header>
+
+  <!-- Mobile drawer -->
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-panel">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <a class="brand" href="/app/index.html">
+          <img src="/assets/img/Pnue.png" alt="PneuScan AI icon" />
+          <span>PneuScan <span class="ai">AI</span></span>
+        </a>
+        <button class="icon-btn drawer-close" id="closeDrawer" type="button" aria-label="Close menu">✕</button>
+      </div>
+
+      <div style="margin-top:10px;color:rgba(11,31,59,.75);font-weight:900;font-size:13px;">
+        <div id="userName">Account</div>
+        <div id="userEmail" style="font-weight:800;">user@email.com</div>
+      </div>
+
+      <nav class="nav" style="margin-top:14px;">
+        <a data-nav="dashboard" href="/app/index.html">Dashboard</a>
+        <a data-nav="newscan" href="/app/new-scan.html">New scan</a>
+        <a data-nav="history" href="/app/history.html">Scan history</a>
+        <a data-nav="profile" href="/app/profile.html">Profile</a>
+        <a href="#" data-signout>Sign out</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="app-shell">
+    <!-- Desktop sidebar -->
+    <aside class="sidebar">
+      <a class="brand" href="/app/index.html">
+        <img src="/assets/img/Pnue.png" alt="PneuScan AI icon" />
+        <span>PneuScan <span class="ai">AI</span></span>
+      </a>
+
+      <div style="margin-top:10px;color:rgba(11,31,59,.75);font-weight:900;font-size:13px;">
+        <div id="userName">Account</div>
+        <div id="userEmail" style="font-weight:800;">user@email.com</div>
+      </div>
+
+      <nav class="nav">
+        <a data-nav="dashboard" href="/app/index.html">Dashboard</a>
+        <a data-nav="newscan" href="/app/new-scan.html">New scan</a>
+        <a data-nav="history" href="/app/history.html">Scan history</a>
+        <a data-nav="profile" href="/app/profile.html">Profile</a>
+      </nav>
+
+      <div style="margin-top:14px;">
+        <button class="btn btn-ghost" style="width:100%;" type="button" data-signout>Sign out</button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+      <div class="container">
+
+        <div class="topbar">
+          <div>
+            <h1 class="h1">Dashboard</h1>
+            <p class="sub">Your predictive lung cancer risk workspace for chest X-ray based screening support.</p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn btn-ghost" href="/app/history.html">View history</a>
+            <a class="btn btn-primary" href="/app/new-scan.html">New scan</a>
+          </div>
+        </div>
+
+        <div class="grid">
+          <section class="card">
+            <h2>Quick overview</h2>
+            <p class="muted">Track your scans, review reports, and prioritize follow up screening decisions.</p>
+
+            <div class="kpis">
+              <div class="kpi">
+                <div class="num" id="kpiTotal">0</div>
+                <div class="label">Total scans</div>
+              </div>
+              <div class="kpi">
+                <div class="num" id="kpiModerate">0</div>
+                <div class="label">Moderate risk</div>
+              </div>
+              <div class="kpi">
+                <div class="num" id="kpiElevated">0</div>
+                <div class="label">Elevated risk</div>
+              </div>
+            </div>
+
+            <table class="table" aria-label="Recent scans">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>File</th>
+                  <th>Risk</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="recentRows">
+                <tr>
+                  <td colspan="4" class="muted">Loading recent scans...</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <aside class="card scan-preview">
+            <h2>Live scan preview</h2>
+            <p class="muted">This is a visual effect for the UI. Real analysis happens after upload.</p>
+
+            <div class="xray-frame" aria-hidden="true">
+              <div class="xray-grid"></div>
+              <div class="scan-line"></div>
+              <div class="xray-center">
+                <div>
+                  <strong>X-ray analysis style preview</strong>
+                  <p>Upload a chest X-ray to generate a risk report and a review overlay.</p>
+                </div>
+              </div>
+            </div>
+
+            <ul class="list">
+              <li>Risk band with probability range</li>
+              <li>Report summary for clinician review</li>
+              <li>Follow up guidance placeholder for MVP</li>
+            </ul>
+
+            <a class="btn btn-primary" href="/app/new-scan.html">Upload new X-ray</a>
+          </aside>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="/assets/js/app/dashboard.js"></script>
+</body>
+</html>
