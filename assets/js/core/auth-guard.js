@@ -12,7 +12,20 @@ export async function requireAuth() {
     }
     return session;
 }
+export async function getProfile(userId) {
+    const { data, error } = await supabase
+        .from("profiles")
+        .select("full_name, role")
+        .eq("id", userId)
+        .maybeSingle();
 
+    if (error) return null;
+    return data;
+}
+
+export async function logout() {
+    await supabase.auth.signOut();
+}
 export async function signOut() {
     await supabase.auth.signOut();
     window.location.href = "/auth/login.html";
