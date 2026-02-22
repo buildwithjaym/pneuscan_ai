@@ -86,18 +86,35 @@ The marketing site / UI includes:
 Example structure:
 
 ```txt
-pneuscan-ai/
-├─ index.html
-├─ about.html
-├─ contact.html
-├─ faq.html
-├─ assets/
-│  ├─ css/
-│  │  └─ app.css
-│  ├─ js/
-│  │  └─ app.js
-│  └─ img/
-│     ├─ Pnue.png
-│     ├─ jaymar.jpg
-│     └─ bradnil.jpg
-└─ README.md
+pneuscan-ai//index.html                      (marketing)
+ /auth/
+   login.html
+   signup.html
+   forgot.html
+   reset.html
+
+ /app/
+   index.html                    (dashboard)
+   new-scan.html                 (upload)
+   history.html                  (records list)
+   report.html                   (single report)
+   profile.html                  (account)
+
+ /assets/
+   /css/
+     app.css                     (marketing + shared tokens)
+     auth.css                    (auth only)
+     app-ui.css                  (app pages only)  <-- NEW
+   /js/
+     /core/
+       supabase.js
+       auth-guard.js
+     /app/
+       layout.js
+       dashboard.js
+       new-scan.js
+       history.js
+       report.js
+       profile.js
+   /img/
+     Pnue.png
