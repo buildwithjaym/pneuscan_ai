@@ -426,23 +426,50 @@
       <p>Get a pilot-ready walkthrough of the risk report experience, integration approach, and validation roadmap.</p>
     </div>
 
-    <form class="cta-form" novalidate>
-      <input
-        id="ctaEmail"
-        name="email"
-        type="email"
-        placeholder="your@email.com"
-        autocomplete="email"
-     />    
+    <form class="cta-form" id="demoForm" novalidate>
+  <input
+    id="ctaName"
+    name="name"
+    type="text"
+    placeholder="Your name (optional)"
+    autocomplete="name"
+  />
 
-      <button type="submit" id="ctaBtn" class="btn btn-primary">
-        Get in touch
-      </button>
+  <input
+    id="ctaOrg"
+    name="organization"
+    type="text"
+    placeholder="Hospital / Organization (optional)"
+    autocomplete="organization"
+  />
 
-      <p class="tiny" id="ctaHint">
-        We will reply with a demo deck and pilot discussion steps.
-      </p>
-    </form>
+  <input
+    id="ctaEmail"
+    name="email"
+    type="email"
+    placeholder="your@email.com"
+    autocomplete="email"
+    required
+  />
+
+  <textarea
+    id="ctaFeedback"
+    name="feedback"
+    placeholder="What do you want to see in the demo? (e.g., workflow, reports, integration)"
+    rows="4"
+    required
+  ></textarea>
+
+  <button type="submit" id="ctaBtn" class="btn btn-primary">
+    Get in touch
+  </button>
+
+  <p class="tiny" id="ctaHint">
+    We will reply with a demo deck and pilot discussion steps.
+  </p>
+
+  <p class="tiny" id="ctaStatus" aria-live="polite" style="margin-top:8px;"></p>
+</form>
   </div>
 </section>
   </main>
