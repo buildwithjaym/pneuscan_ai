@@ -5,17 +5,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector(".cta-form");
     if (!form) return;
 
-    const input = document.querySelector("#ctaEmail");
-    const hint = document.querySelector("#ctaHint");
-    const btn = document.querySelector("#ctaBtn");
+    // Required
+    const emailInput = document.getElementById("ctaEmail");
+    const feedbackInput = document.getElementById("ctaFeedback");
 
+    // Optional
+    const nameInput = document.getElementById("ctaName");
+    const orgInput = document.getElementById("ctaOrg");
+
+    const hint = document.getElementById("ctaHint");
+    const btn = document.getElementById("ctaBtn");
+
+    // --- UI helpers ---
     const setHint = (text, ok = false) => {
         if (!hint) return;
         hint.textContent = text;
         hint.style.color = ok ? "#0f766e" : "#b91c1c";
     };
 
-    // Simple toast (no extra HTML needed)
+    // Minimal toast (no extra HTML needed)
     const toast = (() => {
         let el = document.getElementById("ps-toast");
         if (!el) {
@@ -30,9 +38,8 @@ document.addEventListener("DOMContentLoaded", () => {
             el.style.padding = "10px 14px";
             el.style.borderRadius = "12px";
             el.style.border = "1px solid rgba(11,31,59,.12)";
-            el.style.background = "rgba(255,255,255,.92)";
+            el.style.background = "rgba(255,255,255,.95)";
             el.style.boxShadow = "0 18px 40px rgba(11,31,59,.12)";
-            el.style.color = "#0B1F3B";
             el.style.fontWeight = "900";
             el.style.fontSize = "13px";
             el.style.opacity = "0";
@@ -49,66 +56,82 @@ document.addEventListener("DOMContentLoaded", () => {
             el.style.borderColor = ok ? "rgba(0,166,166,.35)" : "rgba(185,28,28,.35)";
             el.style.color = ok ? "#0f766e" : "#b91c1c";
 
-            // show
             el.style.opacity = "1";
             el.style.transform = "translateX(-50%) translateY(0)";
 
-            // hide after 2.4s
             clearTimeout(t);
             t = setTimeout(() => {
                 el.style.opacity = "0";
                 el.style.transform = "translateX(-50%) translateY(10px)";
-            }, 2400);
+            }, 2600);
         };
     })();
 
-    // ✅ Only allow emails like: name@gmail.com
-    const isValidGmail = (email) => {
-        // must have something before @, must end with @gmail.com, no spaces
-        return /^[^\s@]+@gmail\.com$/i.test(email);
+    const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    const setLoading = (loading) => {
+        if (!btn) return;
+        btn.disabled = loading;
+        btn.textContent = loading ? "Sending…" : "Get in touch";
     };
 
+    // --- Submit ---
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const email = (input?.value || "").trim().toLowerCase();
+        const email = (emailInput?.value || "").trim().toLowerCase();
+        const feedback = (feedbackInput?.value || "").trim();
+        const name = (nameInput?.value || "").trim();
+        const organization = (orgInput?.value || "").trim();
 
         if (!email) {
             setHint("Please enter your email.", false);
             toast("Please enter your email.", false);
-            input?.focus();
+            emailInput?.focus();
             return;
         }
 
-        if (!isValidGmail(email)) {
-            setHint("Use a Gmail address (example: name@gmail.com).", false);
-            toast("Invalid email. Please use name@gmail.com", false);
-            input?.focus();
+        if (!isValidEmail(email)) {
+            setHint("Please enter a valid email address.", false);
+            toast("Invalid email address.", false);
+            emailInput?.focus();
             return;
         }
 
-        btn.disabled = true;
-        const oldText = btn.textContent;
-        btn.textContent = "Sending…";
+        if (!feedback || feedback.length < 10) {
+            setHint("Please add a short message (min 10 characters).", false);
+            toast("Feedback is required.", false);
+            feedbackInput?.focus();
+            return;
+        }
+
+        setLoading(true);
         setHint("Submitting…", true);
 
-        const { error } = await supabase.from("demo_requests").insert([{ email }]);
+        try {
+            const payload = {
+                email,
+                feedback,
+                name: name || null,
+                organization: organization || null,
+                source: "marketing"
+            };
 
-        if (error) {
-            console.error("[demo_requests insert error]", error);
+            const { error } = await supabase.from("demo_requests").insert([payload]);
+            if (error) throw error;
+
+            setHint("Success — we’ll contact you soon.", true);
+            toast("✅ Sent! We’ll contact you soon.", true);
+            form.reset();
+        } catch (err) {
+            console.error("[demo_requests insert error]", err);
             setHint("Failed to send. Try again.", false);
-            toast("Failed to send. Try again.", false);
 
-            btn.disabled = false;
-            btn.textContent = oldText;
-            return;
+            // Supabase errors often have .message
+            const msg = err?.message ? `Failed: ${err.message}` : "Failed to send. Try again.";
+            toast(msg, false);
+        } finally {
+            setLoading(false);
         }
-
-        setHint("Success — we’ll contact you soon.", true);
-        toast("✅ Sent! We’ll contact you soon.", true);
-        form.reset();
-
-        btn.disabled = false;
-        btn.textContent = oldText;
     });
 });
